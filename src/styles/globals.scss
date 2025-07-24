@@ -1,0 +1,125 @@
+/**
+ * Global SCSS styles - Pixel-perfect match to screenshot
+ */
+
+@import './fonts.scss';
+@import './variables.scss';
+
+// Global reset and base styles
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: "Karbon", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-weight: 400;
+  background-color: #FFFFFF; // White background like design
+  color: $color-text-primary;
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0; // Ensure no default margin
+  padding: 0; // Ensure no default padding
+}
+
+// Remove all Material-UI default border-radius except for pagination buttons
+*:not(.pagination-button):not(.pagination-button *) {
+  border-radius: $border-radius !important;
+}
+
+// Ensure pagination buttons are always circular
+.pagination-button {
+  border-radius: 50% !important;
+  width: 32px !important;
+  height: 32px !important;
+  min-width: 32px !important;
+  min-height: 32px !important;
+  max-width: 32px !important;
+  max-height: 32px !important;
+}
+
+// Custom scrollbar - minimal and clean
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #CCCCCC;
+  border-radius: 0;
+  
+  &:hover {
+    background: #AAAAAA;
+  }
+}
+
+// Utility classes
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.font-regular {
+  font-weight: $font-weight-regular;
+}
+
+.font-semibold {
+  font-weight: $font-weight-semibold;
+}
+
+// Remove focus outlines and add custom ones
+button:focus,
+input:focus,
+select:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+// Ensure no transitions or animations interfere with exact design
+* {
+  transition: none !important;
+  animation: none !important;
+}
+
+// Mobile-first responsive utilities
+@media (max-width: #{$breakpoint-mobile}) {
+  .mobile-hide {
+    display: none;
+  }
+  
+  .mobile-stack {
+    flex-direction: column !important;
+  }
+  
+  .mobile-full-width {
+    width: 100% !important;
+  }
+}
+
+@media (min-width: #{$breakpoint-mobile + 1px}) and (max-width: #{$breakpoint-tablet}) {
+  // Tablet-specific adjustments can be added here when needed
+}
+
+@media (min-width: #{$breakpoint-tablet + 1px}) {
+  .desktop-only {
+    display: block;
+  }
+}

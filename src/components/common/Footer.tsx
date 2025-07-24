@@ -1,0 +1,44 @@
+/**
+ * Footer Component - Pixel-perfect match to screenshot
+ */
+import React from 'react';
+import { Box, Typography } from '@mui/material';
+
+export const Footer: React.FC = () => {
+  return (
+    <Box
+      sx={{
+        backgroundColor: '#1E3A8A', // Exact dark blue from screenshot
+        color: '#FFFFFF', // Pure white text
+        height: '187px', // Exact height from design specification
+        display: 'flex',
+        alignItems: 'center', // Center content vertically
+        justifyContent: 'center', // Center content horizontally
+        padding: '0 40px', // Horizontal padding only
+        marginTop: 'auto',
+        width: '100%',
+        borderRadius: '0 !important', // Sharp corners
+        boxShadow: 'none', // No shadow
+
+        // Mobile responsive
+        '@media (max-width: 768px)': {
+          padding: '0 20px',
+          height: '150px', // Slightly smaller on mobile
+        },
+      }}
+    >
+      <Typography
+        sx={{
+          fontSize: '14px', // Exact font size from screenshot
+          lineHeight: 1.5, // Good line height for readability
+          textAlign: 'center', // Center text horizontally
+          fontFamily: 'Karbon, sans-serif',
+          fontWeight: 400, // Regular weight
+          color: '#FFFFFF',
+        }}
+      >
+        Lorem ipsum dolor sit amet, consectetur adipisci elit, sed do eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrum exercitationem ullam
+      </Typography>
+    </Box>
+  );
+};

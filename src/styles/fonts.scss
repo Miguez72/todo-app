@@ -1,0 +1,26 @@
+/**
+ * Karbon Font Declarations - Using exact fonts from Assets/Fonts
+ */
+
+@font-face {
+  font-family: 'Karbon';
+  src: url('/fonts/karbon-regular-webfont.woff') format('woff'),
+       url('/fonts/karbon-regular-webfont.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Karbon';
+  src: url('/fonts/karbon-semibold-webfont.woff') format('woff'),
+       url('/fonts/karbon-semibold-webfont.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+// Font variables
+$font-family-primary: 'Karbon', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+$font-weight-regular: 400;
+$font-weight-semibold: 600;

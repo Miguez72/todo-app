@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="242" height="25" viewBox="0 0 242 25">
+  <g id="pager" transform="translate(-1038 -867)">
+    <g id="Raggruppa_492" data-name="Raggruppa 492">
+      <circle id="Ellisse_3" data-name="Ellisse 3" cx="12.5" cy="12.5" r="12.5" transform="translate(1063 867)" fill="#003479"/>
+      <text id="_1" data-name="1" transform="translate(1073 885)" fill="#fff" font-size="16" font-family="Karbon-Regular, Karbon"><tspan x="0" y="0">1</tspan></text>
+    </g>
+    <text id="_2" data-name="2" transform="translate(1108 885)" fill="#003479" font-size="16" font-family="Karbon-Regular, Karbon"><tspan x="0" y="0">2</tspan></text>
+    <text id="_3" data-name="3" transform="translate(1143 885)" fill="#003479" font-size="16" font-family="Karbon-Regular, Karbon"><tspan x="0" y="0">3</tspan></text>
+    <text id="_4" data-name="4" transform="translate(1177 885)" fill="#003479" font-size="16" font-family="Karbon-Regular, Karbon"><tspan x="0" y="0">4</tspan></text>
+    <text id="_..." data-name="..." transform="translate(1210 885)" fill="#003479" font-size="16" font-family="Karbon-Regular, Karbon"><tspan x="0" y="0">...</tspan></text>
+    <text id="_16" data-name="16" transform="translate(1244 885)" fill="#003479" font-size="16" font-family="Karbon-Regular, Karbon"><tspan x="0" y="0">16</tspan></text>
+    <g id="Raggruppa_500" data-name="Raggruppa 500" transform="translate(1053 872) rotate(90)">
+      <g id="Raggruppa_499" data-name="Raggruppa 499" transform="translate(0)">
+        <g id="Raggruppa_498" data-name="Raggruppa 498">
+          <path id="Tracciato_732" data-name="Tracciato 732" d="M7.529,0a7.5,7.5,0,1,0,7.5,7.5A7.5,7.5,0,0,0,7.529,0Zm0,14A6.495,6.495,0,1,1,14.023,7.5,6.5,6.5,0,0,1,7.529,14Z" transform="translate(-0.03)" fill="#b1b1b1"/>
+          <path id="Tracciato_733" data-name="Tracciato 733" d="M118.682,172.9l-2.9,2.906-2.9-2.906a.5.5,0,0,0-.71.71l3.258,3.258a.494.494,0,0,0,.357.147.505.505,0,0,0,.357-.147l3.257-3.258a.5.5,0,1,0-.709-.71Z" transform="translate(-108.314 -167.043)" fill="#b1b1b1"/>
+        </g>
+      </g>
+    </g>
+    <g id="Raggruppa_501" data-name="Raggruppa 501" transform="translate(1265 886.998) rotate(-90)">
+      <g id="Raggruppa_499-2" data-name="Raggruppa 499" transform="translate(0)">
+        <g id="Raggruppa_498-2" data-name="Raggruppa 498">
+          <path id="Tracciato_732-2" data-name="Tracciato 732" d="M7.529,0a7.5,7.5,0,1,0,7.5,7.5A7.5,7.5,0,0,0,7.529,0Zm0,14A6.495,6.495,0,1,1,14.023,7.5,6.5,6.5,0,0,1,7.529,14Z" transform="translate(-0.03)" fill="#00a0df"/>
+          <path id="Tracciato_733-2" data-name="Tracciato 733" d="M118.682,172.9l-2.9,2.906-2.9-2.906a.5.5,0,0,0-.71.71l3.258,3.258a.494.494,0,0,0,.357.147.505.505,0,0,0,.357-.147l3.257-3.258a.5.5,0,1,0-.709-.71Z" transform="translate(-108.314 -167.043)" fill="#00a0df"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

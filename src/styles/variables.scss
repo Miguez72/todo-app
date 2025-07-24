@@ -1,0 +1,65 @@
+/**
+ * Design Variables - Exact colors and measurements from screenshot
+ */
+
+// EXACT COLORS FROM SCREENSHOT
+$color-header-purple: #644C79;          // Header background (updated)
+$color-filters-border: #644C79;         // Filters panel border (updated to match)
+$color-background-main: #F5F5F5;        // Main background
+$color-background-white: #FFFFFF;        // White backgrounds
+$color-table-header: #EFEFEF;           // Table header background
+$color-divider-cyan: #00BCD4;           // Table row dividers
+$color-footer-blue: #1E3A8A;            // Footer background
+$color-text-primary: #333333;           // Primary text
+$color-text-secondary: #666666;         // Secondary text
+$color-text-blue: #644C79;             // Purple text (updated to match)
+$color-completed-check: #4A9EE7;        // Blue checkmark
+$color-incomplete-x: #E74C3C;           // Red X mark
+$color-search-icon-bg: #644C79;         // Search icon background (updated)
+$color-toggle-inactive: #CCCCCC;        // Toggle inactive color
+$color-toggle-active: #644C79;          // Toggle active color (updated)
+$color-pagination-active: #644C79;      // Active page button (updated)
+$color-pagination-border: #DDDDDD;      // Pagination borders
+
+// EXACT MEASUREMENTS FROM SCREENSHOT
+$header-height: 60px;
+$filters-panel-width: 280px;
+$filters-panel-padding: 20px;
+$filters-border-width: 2px;
+$main-content-gap: 30px;
+$table-row-height: 50px;
+$table-header-height: 45px;
+$footer-padding: 0 40px;                // Footer horizontal padding only
+$footer-height: 187px;                  // Exact footer height from design
+$search-box-height: 40px;
+$toggle-width: 60px;
+$toggle-height: 26px;
+$dropdown-height: 40px;
+$pagination-button-size: 32px;
+
+// TYPOGRAPHY SIZES
+$font-size-header-logo: 24px;
+$font-size-filters-title: 16px;
+$font-size-section-title: 14px;
+$font-size-table-header: 14px;
+$font-size-table-content: 16px;
+$font-size-pagination: 14px;
+$font-size-footer: 14px;
+
+// SPACING
+$spacing-xs: 5px;
+$spacing-sm: 10px;
+$spacing-md: 15px;
+$spacing-lg: 20px;
+$spacing-xl: 25px;
+$spacing-xxl: 30px;
+
+// BORDERS - NO ROUNDED CORNERS
+$border-radius: 0px;  // All elements have sharp corners
+$border-width-thin: 1px;
+$border-width-thick: 2px;
+
+// RESPONSIVE BREAKPOINTS
+$breakpoint-mobile: 768px;
+$breakpoint-tablet: 1024px;
+$breakpoint-desktop: 1200px;
