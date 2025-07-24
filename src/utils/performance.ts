@@ -12,6 +12,7 @@ class PerformanceMonitor {
    */
   start(name: string): void {
     if (this.isDevelopment) {
+      // Always set the timer, overwriting if it already exists
       this.timers.set(name, performance.now());
     }
   }
@@ -24,7 +25,7 @@ class PerformanceMonitor {
 
     const startTime = this.timers.get(name);
     if (!startTime) {
-      console.warn(`Performance timer '${name}' was not started`);
+      // Silently return 0 if timer doesn't exist (React Strict Mode can cause this)
       return 0;
     }
 
@@ -49,7 +50,11 @@ class PerformanceMonitor {
   measureAsync<T>(name: string, operation: Promise<T>): Promise<T> {
     if (!this.isDevelopment) return operation;
 
-    this.start(name);
+    // For React Strict Mode compatibility, only start timer if not already running
+    if (!this.timers.has(name)) {
+      this.start(name);
+    }
+    
     return operation.finally(() => {
       this.end(name);
     });

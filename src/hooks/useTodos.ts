@@ -1,7 +1,7 @@
 /**
  * Custom hook for managing todos data and filtering
  */
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import type { Todo, TodoFilters, PaginationState, User } from '../types';
 import { TodoService } from '../services/todoService';
 
@@ -102,57 +102,57 @@ export const useTodos = () => {
   /**
    * Update title filter
    */
-  const updateTitleFilter = (title: string) => {
+  const updateTitleFilter = useCallback((title: string) => {
     setFilters(prev => ({ ...prev, titleSearch: title }));
-  };
+  }, []);
 
   /**
    * Update completed filter
    */
-  const updateCompletedFilter = (completed: boolean | null) => {
+  const updateCompletedFilter = useCallback((completed: boolean | null) => {
     setFilters(prev => ({ ...prev, completedFilter: completed }));
-  };
+  }, []);
 
   /**
    * Update user IDs filter
    */
-  const updateUserIdsFilter = (userIds: number[]) => {
+  const updateUserIdsFilter = useCallback((userIds: number[]) => {
     setFilters(prev => ({ ...prev, userIds }));
-  };
+  }, []);
 
   /**
    * Reset all filters
    */
-  const resetFilters = () => {
+  const resetFilters = useCallback(() => {
     setFilters({
       titleSearch: '',
       completedFilter: null,
       userIds: []
     });
-  };
+  }, []);
 
   /**
    * Update pagination page
    */
-  const updatePage = (page: number) => {
+  const updatePage = useCallback((page: number) => {
     setPagination(prev => ({ ...prev, currentPage: page }));
-  };
+  }, []);
 
   /**
    * Update items per page
    */
-  const updateItemsPerPage = (itemsPerPage: number) => {
+  const updateItemsPerPage = useCallback((itemsPerPage: number) => {
     setPagination(prev => ({
       ...prev,
       itemsPerPage,
       currentPage: 1 // Reset to first page
     }));
-  };
+  }, []);
 
   /**
    * Add a new todo to the list
    */
-  const addTodo = async (newTodo: Omit<Todo, 'id'>): Promise<void> => {
+  const addTodo = useCallback(async (newTodo: Omit<Todo, 'id'>): Promise<void> => {
     try {
       const createdTodo = await TodoService.createTodo(newTodo);
       // Add to local state (since jsonplaceholder doesn't persist)
@@ -160,12 +160,12 @@ export const useTodos = () => {
     } catch (err) {
       throw new Error(err instanceof Error ? err.message : 'Failed to add todo');
     }
-  };
+  }, []);
 
   /**
    * Update an existing todo
    */
-  const updateTodo = async (id: number, updates: Partial<Todo>): Promise<void> => {
+  const updateTodo = useCallback(async (id: number, updates: Partial<Todo>): Promise<void> => {
     try {
       await TodoService.updateTodo(id, updates);
       // Update local state
@@ -175,12 +175,12 @@ export const useTodos = () => {
     } catch (err) {
       throw new Error(err instanceof Error ? err.message : 'Failed to update todo');
     }
-  };
+  }, []);
 
   /**
    * Delete a todo
    */
-  const deleteTodo = async (id: number): Promise<void> => {
+  const deleteTodo = useCallback(async (id: number): Promise<void> => {
     try {
       await TodoService.deleteTodo(id);
       // Remove from local state
@@ -188,7 +188,7 @@ export const useTodos = () => {
     } catch (err) {
       throw new Error(err instanceof Error ? err.message : 'Failed to delete todo');
     }
-  };
+  }, []);
 
   return {
     // Data
