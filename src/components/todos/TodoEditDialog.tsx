@@ -21,6 +21,7 @@ import {
 import type { SelectChangeEvent } from '@mui/material';
 import SaveIcon from '@mui/icons-material/Save';
 import CancelIcon from '@mui/icons-material/Cancel';
+import { logger } from '../../utils/logger';
 import type { Todo, User } from '../../types';
 
 interface TodoEditDialogProps {
@@ -150,7 +151,7 @@ export const TodoEditDialog: React.FC<TodoEditDialogProps> = ({
       });
       onClose();
     } catch (error) {
-      console.error('Error saving todo:', error);
+      logger.error('Error saving todo:', error);
       setFormErrors({
         submit: error instanceof Error ? error.message : 'Failed to save todo'
       });

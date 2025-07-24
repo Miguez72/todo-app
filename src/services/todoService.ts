@@ -3,6 +3,8 @@
  */
 import axios from 'axios';
 import type { Todo, User } from '../types';
+import { logger } from '../utils/logger';
+import { perf } from '../utils/performance';
 
 const API_BASE_URL = 'https://jsonplaceholder.typicode.com';
 
@@ -19,10 +21,13 @@ export class TodoService {
    */
   static async getAllTodos(): Promise<Todo[]> {
     try {
-      const response = await api.get<Todo[]>('/todos');
+      const response = await perf.measureAsync(
+        'API: Fetch Todos',
+        api.get<Todo[]>('/todos')
+      );
       return response.data;
     } catch (error) {
-      console.error('Error fetching todos:', error);
+      logger.error('Error fetching todos:', error);
       throw new Error('Failed to fetch todos');
     }
   }
@@ -33,13 +38,13 @@ export class TodoService {
    */
   static async getAllUsers(): Promise<User[]> {
     try {
-      const response = await api.get<User[]>('/users');
-      return response.data.map(user => ({
-        id: user.id,
-        name: user.name
-      }));
+      const response = await perf.measureAsync(
+        'API: Fetch Users',
+        api.get<User[]>('/users')
+      );
+      return response.data;
     } catch (error) {
-      console.error('Error fetching users:', error);
+      logger.error('Error fetching users:', error);
       throw new Error('Failed to fetch users');
     }
   }
@@ -54,7 +59,7 @@ export class TodoService {
       const response = await api.post<Todo>('/todos', todo);
       return response.data;
     } catch (error) {
-      console.error('Error creating todo:', error);
+      logger.error('Error creating todo:', error);
       throw new Error('Failed to create todo');
     }
   }
@@ -70,7 +75,7 @@ export class TodoService {
       const response = await api.patch<Todo>(`/todos/${id}`, todo);
       return response.data;
     } catch (error) {
-      console.error('Error updating todo:', error);
+      logger.error('Error updating todo:', error);
       throw new Error('Failed to update todo');
     }
   }
@@ -84,7 +89,7 @@ export class TodoService {
     try {
       await api.delete(`/todos/${id}`);
     } catch (error) {
-      console.error('Error deleting todo:', error);
+      logger.error('Error deleting todo:', error);
       throw new Error('Failed to delete todo');
     }
   }

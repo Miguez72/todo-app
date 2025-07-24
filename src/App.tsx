@@ -4,6 +4,7 @@
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { TodoPage } from './pages/TodoPage';
+import { ErrorBoundary } from './components/common/ErrorBoundary';
 
 // Create Material-UI theme
 const theme = createTheme({
@@ -120,13 +121,15 @@ const theme = createTheme({
  */
 function App() {
   return (
-    <ThemeProvider theme={theme}>
-      {/* CssBaseline provides consistent styling across browsers */}
-      <CssBaseline />
-      
-      {/* Main Todo Application */}
-      <TodoPage />
-    </ThemeProvider>
+    <ErrorBoundary>
+      <ThemeProvider theme={theme}>
+        {/* CssBaseline provides consistent styling across browsers */}
+        <CssBaseline />
+        
+        {/* Main Todo Application */}
+        <TodoPage />
+      </ThemeProvider>
+    </ErrorBoundary>
   );
 }
 
