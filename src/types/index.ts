@@ -29,3 +29,12 @@ export interface User {
   id: number;
   name: string;
 }
+
+// Sorting interfaces
+export type SortField = 'id' | 'title' | 'userId' | 'completed';
+export type SortDirection = 'asc' | 'desc';
+
+export interface SortState {
+  field: SortField;
+  direction: SortDirection;
+}

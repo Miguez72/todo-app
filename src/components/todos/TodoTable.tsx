@@ -3,13 +3,13 @@
  */
 import React from 'react';
 import { Typography } from '@mui/material';
-import type { Todo, User, PaginationState } from '../../types';
+import type { Todo, User, PaginationState, SortState, SortField } from '../../types';
 import { LoadingState } from '../common/LoadingState';
 import { ErrorState } from '../common/ErrorState';
 import { EmptyState } from '../common/EmptyState';
+import { TodoTableHeader } from './TodoTableHeader';
 import {
   TableContainer,
-  TableHeader,
   TableRow,
   PaginationContainer,
   PaginationButton,
@@ -26,6 +26,8 @@ interface TodoTableProps {
   onToggleComplete: (id: number, completed: boolean) => void;
   pagination: PaginationState;
   onPageChange: (page: number) => void;
+  sortState: SortState | null;
+  onSort: (field: SortField) => void;
 }
 
 export const TodoTable: React.FC<TodoTableProps> = ({
@@ -34,7 +36,9 @@ export const TodoTable: React.FC<TodoTableProps> = ({
   error,
   onEdit,
   pagination,
-  onPageChange
+  onPageChange,
+  sortState,
+  onSort
 }) => {
   /**
    * Calculate total pages from pagination state
@@ -64,18 +68,11 @@ export const TodoTable: React.FC<TodoTableProps> = ({
 
   return (
     <TableContainer>
-      {/* Table Header */}
-      <TableHeader>
-        <Typography variant="tableHeader" sx={{ textAlign: 'left' }}>
-          USER ID
-        </Typography>
-        <Typography variant="tableHeader" sx={{ textAlign: 'left' }}>
-          TITLE
-        </Typography>
-        <Typography variant="tableHeader" sx={{ textAlign: 'right' }}>
-          COMPLETED
-        </Typography>
-      </TableHeader>
+      {/* Sortable Table Header */}
+      <TodoTableHeader
+        sortState={sortState}
+        onSort={onSort}
+      />
 
       {/* Table Rows */}
       {todos.map((todo) => (

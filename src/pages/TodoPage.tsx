@@ -30,11 +30,13 @@ export const TodoPage: React.FC = () => {
     error,
     filters,
     pagination,
+    sortState,
     updateTitleFilter,
     updateCompletedFilter,
     updateUserIdsFilter,
     resetFilters,
     updatePage,
+    updateSort,
     addTodo,
     updateTodo,
     deleteTodo
@@ -225,6 +227,8 @@ export const TodoPage: React.FC = () => {
             onToggleComplete={handleToggleComplete}
             pagination={pagination}
             onPageChange={updatePage}
+            sortState={sortState}
+            onSort={updateSort}
           />
           
           {/* Pagination now integrated inside TodoTable */}

@@ -18,6 +18,8 @@ export { FiltersPanel } from './filters/FiltersPanel';
 export { TodoItem } from './todos/TodoItem';
 export { TodoList } from './todos/TodoList';
 export { TodoTable } from './todos/TodoTable';
+export { TodoTableHeader } from './todos/TodoTableHeader';
+export { SortableHeaderCell } from './todos/SortableHeaderCell';
 export { TodoPagination } from './todos/TodoPagination';
 export { PaginationControls } from './todos/PaginationControls';
 export { TodoEditDialog } from './todos/TodoEditDialog';

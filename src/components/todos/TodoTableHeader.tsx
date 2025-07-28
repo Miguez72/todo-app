@@ -1,10 +1,20 @@
 /**
- * TodoTableHeader Component - Theme-based table header
+ * TodoTableHeader Component - Interactive sortable table header
  */
 import React from 'react';
-import { Box, Typography, useTheme } from '@mui/material';
+import { Box, useTheme } from '@mui/material';
+import { SortableHeaderCell } from './SortableHeaderCell';
+import type { SortField, SortState } from '../../types';
 
-export const TodoTableHeader: React.FC = () => {
+interface TodoTableHeaderProps {
+  sortState: SortState | null;
+  onSort: (field: SortField) => void;
+}
+
+export const TodoTableHeader: React.FC<TodoTableHeaderProps> = ({
+  sortState,
+  onSort
+}) => {
   const theme = useTheme();
 
   return (
@@ -21,47 +31,29 @@ export const TodoTableHeader: React.FC = () => {
         marginBottom: 2.5, // Theme spacing
       }}
     >
-      <Typography
-        variant="h3"
-        sx={{
-          color: 'tertiary.main', // Using theme color
-          fontSize: { xs: '16px', sm: '20px' }, // Responsive font size
-          letterSpacing: '0.5px',
-          textAlign: 'left',
-          lineHeight: 1,
-          textTransform: 'uppercase',
-        }}
-      >
-        USER ID
-      </Typography>
+      <SortableHeaderCell
+        field="userId"
+        label="USER ID"
+        sortState={sortState}
+        onSort={onSort}
+        align="left"
+      />
       
-      <Typography
-        variant="h3"
-        sx={{
-          color: 'tertiary.main',
-          fontSize: { xs: '16px', sm: '20px' },
-          letterSpacing: '0.5px',
-          textAlign: 'left',
-          lineHeight: 1,
-          textTransform: 'uppercase',
-        }}
-      >
-        TITLE
-      </Typography>
+      <SortableHeaderCell
+        field="title"
+        label="TITLE"
+        sortState={sortState}
+        onSort={onSort}
+        align="left"
+      />
       
-      <Typography
-        variant="h3"
-        sx={{
-          color: 'tertiary.main',
-          fontSize: { xs: '16px', sm: '20px' },
-          letterSpacing: '0.5px',
-          textAlign: 'right',
-          lineHeight: 1,
-          textTransform: 'uppercase',
-        }}
-      >
-        STATUS
-      </Typography>
+      <SortableHeaderCell
+        field="completed"
+        label="STATUS"
+        sortState={sortState}
+        onSort={onSort}
+        align="right"
+      />
     </Box>
   );
 };

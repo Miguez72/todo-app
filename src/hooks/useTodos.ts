@@ -2,7 +2,7 @@
  * Custom hook for managing todos data and filtering
  */
 import { useState, useEffect, useMemo, useCallback } from 'react';
-import type { Todo, TodoFilters, PaginationState, User } from '../types';
+import type { Todo, TodoFilters, PaginationState, User, SortState, SortField } from '../types';
 import { TodoService } from '../services/todoService';
 
 export const useTodos = () => {
@@ -25,6 +25,28 @@ export const useTodos = () => {
     itemsPerPage: 10,
     totalItems: 0
   });
+
+  // Sorting state
+  const [sortState, setSortState] = useState<SortState | null>(null);
+
+  /**
+   * Sort comparison function
+   */
+  const getSortComparator = useCallback((a: Todo, b: Todo, field: SortField): number => {
+    switch (field) {
+      case 'id':
+        return a.id - b.id;
+      case 'title':
+        return a.title.localeCompare(b.title);
+      case 'userId':
+        return a.userId - b.userId;
+      case 'completed':
+        // Completed first when ascending (false < true)
+        return Number(a.completed) - Number(b.completed);
+      default:
+        return 0;
+    }
+  }, []);
 
   /**
    * Fetch initial data on component mount
@@ -54,43 +76,47 @@ export const useTodos = () => {
   }, []);
 
   /**
-   * Filter todos based on current filter state
+   * Filter and sort todos based on current filter and sort state
    */
   const filteredTodos = useMemo(() => {
     let result = todos;
 
-    // Filter by title (case-insensitive)
+    // Apply filters
     if (filters.titleSearch.trim()) {
       result = result.filter(todo =>
         todo.title.toLowerCase().includes(filters.titleSearch.toLowerCase())
       );
     }
 
-    // Filter by completion status
     if (filters.completedFilter !== null) {
       result = result.filter(todo => todo.completed === filters.completedFilter);
     }
 
-    // Filter by user IDs
     if (filters.userIds.length > 0) {
       result = result.filter(todo => filters.userIds.includes(todo.userId));
     }
 
-    // Sort: newly created todos (timestamp IDs) first, then original todos by ID ascending
-    result = result.sort((a, b) => {
-      // Timestamp IDs are much larger (Date.now() returns milliseconds since epoch)
-      // JSONPlaceholder IDs are 1-200, timestamp IDs are 17+ digits
-      const aIsNew = a.id > 1000; // Assume IDs > 1000 are new todos
-      const bIsNew = b.id > 1000;
-      
-      if (aIsNew && !bIsNew) return -1; // New todos first
-      if (!aIsNew && bIsNew) return 1;  // New todos first
-      if (aIsNew && bIsNew) return b.id - a.id; // Newest new todos first
-      return a.id - b.id; // Original todos in ascending order
-    });
+    // Apply sorting
+    if (sortState) {
+      result = result.sort((a, b) => {
+        const multiplier = sortState.direction === 'asc' ? 1 : -1;
+        return getSortComparator(a, b, sortState.field) * multiplier;
+      });
+    } else {
+      // Default sort: newly created todos (timestamp IDs) first, then original todos by ID ascending
+      result = result.sort((a, b) => {
+        const aIsNew = a.id > 1000; // Assume IDs > 1000 are new todos
+        const bIsNew = b.id > 1000;
+        
+        if (aIsNew && !bIsNew) return -1; // New todos first
+        if (!aIsNew && bIsNew) return 1;  // New todos first
+        if (aIsNew && bIsNew) return b.id - a.id; // Newest new todos first
+        return a.id - b.id; // Original todos in ascending order
+      });
+    }
 
     return result;
-  }, [todos, filters]);
+  }, [todos, filters, sortState, getSortComparator]);
 
   /**
    * Get paginated todos based on current page
@@ -163,6 +189,27 @@ export const useTodos = () => {
   }, []);
 
   /**
+   * Update sort state (3-state toggle: none → asc → desc → none)
+   */
+  const updateSort = useCallback((field: SortField) => {
+    setSortState(current => {
+      if (!current || current.field !== field) {
+        // Start with ascending if no sort or different field
+        return { field, direction: 'asc' };
+      }
+      if (current.direction === 'asc') {
+        // Switch to descending
+        return { field, direction: 'desc' };
+      }
+      // Clear sort (back to default)
+      return null;
+    });
+    
+    // Reset to first page when sorting changes
+    setPagination(prev => ({ ...prev, currentPage: 1 }));
+  }, []);
+
+  /**
    * Add a new todo to the list
    */
   const addTodo = useCallback(async (newTodo: Omit<Todo, 'id'>): Promise<void> => {
@@ -214,6 +261,7 @@ export const useTodos = () => {
     error,
     filters,
     pagination,
+    sortState,
     
     // Filter actions
     updateTitleFilter,
@@ -224,6 +272,9 @@ export const useTodos = () => {
     // Pagination actions
     updatePage,
     updateItemsPerPage,
+    
+    // Sort actions
+    updateSort,
     
     // CRUD actions
     addTodo,
