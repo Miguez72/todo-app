@@ -13,6 +13,7 @@ interface FiltersPanelProps {
   onCompletedFilter: (completed: boolean | null) => void;
   onUserIdsFilter: (userIds: number[]) => void;
   onResetFilters: () => void;
+  onCreateNew: () => void; // New prop for create functionality
   resultsCount: number;
 }
 
@@ -22,7 +23,8 @@ export const FiltersPanel: React.FC<FiltersPanelProps> = ({
   onTitleFilter,
   onCompletedFilter,
   onUserIdsFilter,
-  onResetFilters
+  onResetFilters,
+  onCreateNew,
 }) => {
   const [searchValue, setSearchValue] = React.useState(filters.titleSearch);
 
@@ -299,7 +301,7 @@ export const FiltersPanel: React.FC<FiltersPanelProps> = ({
       </Box>
 
       {/* Reset filters link */}
-      <Box sx={{ textAlign: 'center' }}>
+      <Box sx={{ textAlign: 'center', marginBottom: '20px' }}>
         <Typography
           component="button"
           onClick={onResetFilters}
@@ -318,6 +320,35 @@ export const FiltersPanel: React.FC<FiltersPanelProps> = ({
           }}
         >
           Reset filters
+        </Typography>
+      </Box>
+
+      {/* ADD NEW Button */}
+      <Box sx={{ textAlign: 'center' }}>
+        <Typography
+          component="button"
+          onClick={onCreateNew}
+          sx={{
+            backgroundColor: 'primary.main', // Using theme color
+            color: 'background.default', // Using theme color
+            fontSize: '16px',
+            fontFamily: 'inherit', // Will use theme font
+            fontWeight: 600,
+            border: 'none',
+            borderRadius: '8px',
+            padding: '12px 24px',
+            cursor: 'pointer',
+            textTransform: 'uppercase',
+            letterSpacing: '0.5px',
+            width: '100%',
+            transition: 'all 0.3s ease',
+            '&:hover': {
+              opacity: 0.8,
+              transform: 'scale(1.02)',
+            },
+          }}
+        >
+          ADD NEW
         </Typography>
       </Box>
     </Box>

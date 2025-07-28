@@ -126,6 +126,14 @@ export const TodoPage: React.FC = () => {
   };
 
   /**
+   * Handle creating a new todo
+   */
+  const handleCreateNew = () => {
+    setEditingTodo(null); // Set to null for create mode
+    setEditDialogOpen(true);
+  };
+
+  /**
    * Handle closing edit dialog
    */
   const handleCloseEditDialog = () => {
@@ -193,6 +201,7 @@ export const TodoPage: React.FC = () => {
             onCompletedFilter={updateCompletedFilter}
             onUserIdsFilter={updateUserIdsFilter}
             onResetFilters={resetFilters}
+            onCreateNew={handleCreateNew}
             resultsCount={filteredTodosCount}
           />
         </Box>
