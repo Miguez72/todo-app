@@ -30,7 +30,7 @@ export const TableHeader = styled(Box)(({ theme }) => ({
 
 export const TableRow = styled(Box)(({ theme }) => ({
   display: 'grid',
-  gridTemplateColumns: '80px 1fr 120px',
+  gridTemplateColumns: '100px 1fr 120px', // Match header width
   padding: theme.spacing(3.125, 3.75),
   gap: theme.spacing(2.5),
   alignItems: 'center',

@@ -30,22 +30,44 @@ export const useTodos = () => {
   const [sortState, setSortState] = useState<SortState | null>(null);
 
   /**
-   * Sort comparison function
+   * Simple sort comparison function
    */
-  const getSortComparator = useCallback((a: Todo, b: Todo, field: SortField): number => {
-    switch (field) {
-      case 'id':
-        return a.id - b.id;
-      case 'title':
-        return a.title.localeCompare(b.title);
-      case 'userId':
-        return a.userId - b.userId;
-      case 'completed':
-        // Completed first when ascending (false < true)
-        return Number(a.completed) - Number(b.completed);
-      default:
-        return 0;
+  const sortTodos = useCallback((todos: Todo[], sort: SortState | null): Todo[] => {
+    if (!sort) {
+      // Default sort: newly created todos (timestamp IDs) first, then original todos by ID ascending
+      return [...todos].sort((a, b) => {
+        const aIsNew = a.id > 1000; // Assume IDs > 1000 are new todos
+        const bIsNew = b.id > 1000;
+        
+        if (aIsNew && !bIsNew) return -1; // New todos first
+        if (!aIsNew && bIsNew) return 1;  // New todos first
+        if (aIsNew && bIsNew) return b.id - a.id; // Newest new todos first
+        return a.id - b.id; // Original todos in ascending order
+      });
     }
+
+    return [...todos].sort((a, b) => {
+      let comparison = 0;
+      
+      switch (sort.field) {
+        case 'id':
+          comparison = a.id - b.id;
+          break;
+        case 'title':
+          comparison = a.title.localeCompare(b.title);
+          break;
+        case 'userId':
+          comparison = a.userId - b.userId;
+          break;
+        case 'completed':
+          comparison = Number(a.completed) - Number(b.completed);
+          break;
+        default:
+          comparison = 0;
+      }
+      
+      return sort.direction === 'desc' ? -comparison : comparison;
+    });
   }, []);
 
   /**
@@ -97,26 +119,10 @@ export const useTodos = () => {
     }
 
     // Apply sorting
-    if (sortState) {
-      result = result.sort((a, b) => {
-        const multiplier = sortState.direction === 'asc' ? 1 : -1;
-        return getSortComparator(a, b, sortState.field) * multiplier;
-      });
-    } else {
-      // Default sort: newly created todos (timestamp IDs) first, then original todos by ID ascending
-      result = result.sort((a, b) => {
-        const aIsNew = a.id > 1000; // Assume IDs > 1000 are new todos
-        const bIsNew = b.id > 1000;
-        
-        if (aIsNew && !bIsNew) return -1; // New todos first
-        if (!aIsNew && bIsNew) return 1;  // New todos first
-        if (aIsNew && bIsNew) return b.id - a.id; // Newest new todos first
-        return a.id - b.id; // Original todos in ascending order
-      });
-    }
+    result = sortTodos(result, sortState);
 
     return result;
-  }, [todos, filters, sortState, getSortComparator]);
+  }, [todos, filters, sortState, sortTodos]);
 
   /**
    * Get paginated todos based on current page

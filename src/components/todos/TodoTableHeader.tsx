@@ -21,7 +21,7 @@ export const TodoTableHeader: React.FC<TodoTableHeaderProps> = ({
     <Box
       sx={{
         display: 'grid',
-        gridTemplateColumns: '80px 1fr 120px',
+        gridTemplateColumns: '100px 1fr 120px', // Increased USER ID column width
         backgroundColor: 'transparent',
         borderBottom: `1px solid ${theme.palette.tertiary.main}`,
         padding: { xs: '15px 20px', sm: '20px 30px' }, // Responsive padding
