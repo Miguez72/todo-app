@@ -3,13 +3,14 @@
  */
 import React from 'react';
 import { Box, Typography } from '@mui/material';
+import { COLORS } from '../../constants';
 
 export const Footer: React.FC = () => {
   return (
     <Box
       sx={{
-        backgroundColor: '#1E3A8A', // Exact dark blue from screenshot
-        color: '#FFFFFF', // Pure white text
+        backgroundColor: COLORS.blue.dark, // Exact dark blue from screenshot
+        color: COLORS.background, // Pure white text
         height: '187px', // Exact height from design specification
         display: 'flex',
         alignItems: 'center', // Center content vertically
@@ -34,7 +35,7 @@ export const Footer: React.FC = () => {
           textAlign: 'center', // Center text horizontally
           fontFamily: 'Karbon, sans-serif',
           fontWeight: 400, // Regular weight
-          color: '#FFFFFF',
+          color: COLORS.background,
           width: '100%', // Take full width
           letterSpacing: '0.02em', // Slight letter spacing for better readability
           wordSpacing: '0.1em', // Slight word spacing for better balance

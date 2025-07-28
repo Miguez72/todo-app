@@ -4,6 +4,7 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
 import type { Todo, User, PaginationState } from '../../types';
+import { COLORS } from '../../constants';
 
 interface TodoTableProps {
   todos: Todo[];
@@ -30,8 +31,8 @@ export const TodoTable: React.FC<TodoTableProps> = ({
    */
   if (loading) {
     return (
-      <Box sx={{ padding: '40px', textAlign: 'center', backgroundColor: '#FFFFFF' }}>
-        <Typography color="#666666" fontFamily="Karbon, sans-serif">Loading todos...</Typography>
+      <Box sx={{ padding: '40px', textAlign: 'center', backgroundColor: COLORS.background }}>
+        <Typography color={COLORS.text.secondary} fontFamily="Karbon, sans-serif">Loading todos...</Typography>
       </Box>
     );
   }
@@ -41,8 +42,8 @@ export const TodoTable: React.FC<TodoTableProps> = ({
    */
   if (error) {
     return (
-      <Box sx={{ padding: '40px', textAlign: 'center', backgroundColor: '#FFFFFF' }}>
-        <Typography color="#E74C3C" fontFamily="Karbon, sans-serif">Error: {error}</Typography>
+      <Box sx={{ padding: '40px', textAlign: 'center', backgroundColor: COLORS.background }}>
+        <Typography color={COLORS.text.error} fontFamily="Karbon, sans-serif">Error: {error}</Typography>
       </Box>
     );
   }
@@ -52,8 +53,8 @@ export const TodoTable: React.FC<TodoTableProps> = ({
    */
   if (todos.length === 0) {
     return (
-      <Box sx={{ padding: '40px', textAlign: 'center', backgroundColor: '#FFFFFF' }}>
-        <Typography color="#666666" fontFamily="Karbon, sans-serif">No todos found</Typography>
+      <Box sx={{ padding: '40px', textAlign: 'center', backgroundColor: COLORS.background }}>
+        <Typography color={COLORS.text.secondary} fontFamily="Karbon, sans-serif">No todos found</Typography>
       </Box>
     );
   }
@@ -61,7 +62,7 @@ export const TodoTable: React.FC<TodoTableProps> = ({
   return (
     <Box
       sx={{
-        backgroundColor: '#F5F5F5', // Gray container background like design
+        backgroundColor: COLORS.container, // Gray container background like design
         borderRadius: '0 !important',
         overflow: 'hidden',
         minHeight: '400px',
@@ -82,7 +83,7 @@ export const TodoTable: React.FC<TodoTableProps> = ({
           display: 'grid',
           gridTemplateColumns: '80px 1fr 120px', // Better proportions like design
           backgroundColor: 'transparent', // No background
-          borderBottom: '1px solid #2E3A87', // Dark blue bottom border
+          borderBottom: `1px solid ${COLORS.blue.primary}`, // Dark blue bottom border
           padding: '20px 30px', // More padding like design
           gap: '20px',
           height: '60px', // Taller header
@@ -94,7 +95,7 @@ export const TodoTable: React.FC<TodoTableProps> = ({
           sx={{
             fontFamily: 'Karbon, sans-serif',
             fontWeight: 600, // Bold like design
-            color: '#2E3A87', // Blue color like design
+            color: COLORS.blue.primary, // Blue color like design
             fontSize: '20px', // 20px height as requested
             letterSpacing: '0.5px',
             textAlign: 'left', // Left align like design
@@ -108,7 +109,7 @@ export const TodoTable: React.FC<TodoTableProps> = ({
           sx={{
             fontFamily: 'Karbon, sans-serif',
             fontWeight: 600, // Bold like design
-            color: '#2E3A87', // Blue color like design
+            color: COLORS.blue.primary, // Blue color like design
             fontSize: '20px', // 20px height as requested
             letterSpacing: '0.5px',
             textAlign: 'left',
@@ -122,7 +123,7 @@ export const TodoTable: React.FC<TodoTableProps> = ({
           sx={{
             fontFamily: 'Karbon, sans-serif',
             fontWeight: 600, // Bold like design
-            color: '#2E3A87', // Blue color like design
+            color: COLORS.blue.primary, // Blue color like design
             fontSize: '20px', // 20px height as requested
             letterSpacing: '0.5px',
             textAlign: 'right', // Right align like design
@@ -145,15 +146,15 @@ export const TodoTable: React.FC<TodoTableProps> = ({
               padding: '25px 30px', // More padding like design
               gap: '20px',
               alignItems: 'center',
-              backgroundColor: '#FFFFFF', // White card background
+              backgroundColor: COLORS.background, // White card background
               height: '70px', // Taller rows like design
               cursor: 'pointer',
               marginBottom: '15px', // 15px space between rows
               borderRadius: '0',
               border: 'none',
-              borderBottom: '2px solid #4A9EE7', // Blue border at bottom, full width
+              borderBottom: `2px solid ${COLORS.blue.secondary}`, // Blue border at bottom, full width
               '&:hover': {
-                backgroundColor: '#FAFAFA',
+                backgroundColor: COLORS.gray.light,
               },
               '&:last-child': {
                 marginBottom: '0', // No margin on last item
@@ -168,7 +169,7 @@ export const TodoTable: React.FC<TodoTableProps> = ({
                 padding: '15px',
                 gap: '8px',
                 marginBottom: '15px',
-                borderBottom: '2px solid #4A9EE7',
+                borderBottom: `2px solid ${COLORS.blue.secondary}`,
               },
             }}
             onClick={() => onEdit(todo)}
@@ -177,7 +178,7 @@ export const TodoTable: React.FC<TodoTableProps> = ({
             <Typography
               sx={{
                 fontSize: '16px', // Clean font size
-                color: '#333333',
+                color: COLORS.text.primary,
                 textAlign: 'left', // Left align like design
                 fontFamily: 'Karbon, sans-serif',
                 fontWeight: 400, // Regular
@@ -188,7 +189,7 @@ export const TodoTable: React.FC<TodoTableProps> = ({
                   '&::before': {
                     content: '"User ID: "',
                     fontWeight: 600,
-                    color: '#666666',
+                    color: COLORS.text.secondary,
                   },
                 },
               }}
@@ -200,7 +201,7 @@ export const TodoTable: React.FC<TodoTableProps> = ({
             <Typography
               sx={{
                 fontSize: '16px', // Clean font size
-                color: '#333333',
+                color: COLORS.text.primary,
                 textAlign: 'left',
                 lineHeight: 1.3,
                 fontFamily: 'Karbon, sans-serif',
@@ -210,7 +211,7 @@ export const TodoTable: React.FC<TodoTableProps> = ({
                   '&::before': {
                     content: '"Title: "',
                     fontWeight: 600,
-                    color: '#666666',
+                    color: COLORS.text.secondary,
                     display: 'block',
                     marginBottom: '4px',
                   },
@@ -233,7 +234,7 @@ export const TodoTable: React.FC<TodoTableProps> = ({
                     content: '"Status: "',
                     fontFamily: 'Karbon, sans-serif',
                     fontWeight: 600,
-                    color: '#666666',
+                    color: COLORS.text.secondary,
                     marginRight: '8px',
                   },
                 },
@@ -245,7 +246,7 @@ export const TodoTable: React.FC<TodoTableProps> = ({
                   sx={{
                     width: '24px',
                     height: '24px',
-                    color: '#4A9EE7', // Blue like design
+                    color: COLORS.blue.secondary, // Blue like design
                     fontSize: '20px',
                     fontWeight: 'bold',
                     display: 'flex',
@@ -262,7 +263,7 @@ export const TodoTable: React.FC<TodoTableProps> = ({
                   sx={{
                     width: '24px',
                     height: '24px',
-                    color: '#4A9EE7', // Blue X like design
+                    color: COLORS.blue.secondary, // Blue X like design
                     fontSize: '20px',
                     fontWeight: 'bold',
                     display: 'flex',

@@ -44,10 +44,20 @@ export const COLORS = {
   warning: '#FF9800',
   background: '#FFFFFF',
   container: '#F5F5F5',
+  blue: {
+    primary: '#2E3A87',
+    secondary: '#4A9EE7',
+    dark: '#1E3A8A', // Footer blue
+  },
+  gray: {
+    light: '#FAFAFA',
+    medium: '#F5F5F5',
+  },
   text: {
     primary: '#333333',
     secondary: '#666666',
     disabled: '#999999',
+    error: '#E74C3C',
   },
 } as const;
 

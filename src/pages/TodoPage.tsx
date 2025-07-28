@@ -15,6 +15,7 @@ import { FiltersPanel } from '../components/filters/FiltersPanel';
 import { TodoTable } from '../components/todos/TodoTable';
 import { TodoEditDialog } from '../components/todos/TodoEditDialog';
 import { useTodos } from '../hooks/useTodos';
+import { COLORS } from '../constants';
 import type { Todo } from '../types';
 
 export const TodoPage: React.FC = () => {
@@ -137,7 +138,7 @@ export const TodoPage: React.FC = () => {
     <Box
       sx={{
         minHeight: '100vh',
-        backgroundColor: '#FFFFFF', // White app background like design
+        backgroundColor: COLORS.background, // White app background like design
         display: 'flex',
         flexDirection: 'column',
         fontFamily: 'Karbon, sans-serif',
