@@ -1,10 +1,14 @@
 /**
- * Todo Table Component - Pixel-perfect match to screenshot
+ * Todo Table Component - Theme-based with minimal inline styles
  */
 import React from 'react';
 import { Box, Typography } from '@mui/material';
 import type { Todo, User, PaginationState } from '../../types';
 import { COLORS } from '../../constants';
+import { LoadingState } from '../common/LoadingState';
+import { ErrorState } from '../common/ErrorState';
+import { EmptyState } from '../common/EmptyState';
+import { TodoTableHeader } from './TodoTableHeader';
 
 interface TodoTableProps {
   todos: Todo[];
@@ -30,50 +34,33 @@ export const TodoTable: React.FC<TodoTableProps> = ({
    * Render loading state
    */
   if (loading) {
-    return (
-      <Box sx={{ padding: '40px', textAlign: 'center', backgroundColor: COLORS.background }}>
-        <Typography color={COLORS.text.secondary} fontFamily="Karbon, sans-serif">Loading todos...</Typography>
-      </Box>
-    );
+    return <LoadingState />;
   }
 
   /**
    * Render error state
    */
   if (error) {
-    return (
-      <Box sx={{ padding: '40px', textAlign: 'center', backgroundColor: COLORS.background }}>
-        <Typography color={COLORS.text.error} fontFamily="Karbon, sans-serif">Error: {error}</Typography>
-      </Box>
-    );
+    return <ErrorState message={error} />;
   }
 
   /**
    * Render empty state
    */
   if (todos.length === 0) {
-    return (
-      <Box sx={{ padding: '40px', textAlign: 'center', backgroundColor: COLORS.background }}>
-        <Typography color={COLORS.text.secondary} fontFamily="Karbon, sans-serif">No todos found</Typography>
-      </Box>
-    );
+    return <EmptyState />;
   }
 
   return (
     <Box
       sx={{
-        backgroundColor: COLORS.container, // Gray container background like design
-        borderRadius: '0 !important',
+        backgroundColor: 'background.paper', // Using theme color
+        borderRadius: 0,
         overflow: 'hidden',
         minHeight: '400px',
         boxShadow: 'none',
         border: 'none',
-        padding: '20px', // Padding to show gray background
-
-        // Mobile responsive
-        '@media (max-width: 768px)': {
-          padding: '15px',
-        },
+        padding: { xs: '15px', sm: '20px' }, // Responsive padding using theme
       }}
     >
       {/* Table Header */}

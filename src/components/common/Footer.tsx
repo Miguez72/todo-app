@@ -1,46 +1,33 @@
 /**
- * Footer Component - Pixel-perfect match to screenshot
+ * Footer Component - Using theme-based styling
  */
 import React from 'react';
-import { Box, Typography } from '@mui/material';
-import { COLORS } from '../../constants';
+import { Box, Typography, useTheme } from '@mui/material';
 
 export const Footer: React.FC = () => {
+  const theme = useTheme();
+  
   return (
     <Box
       sx={{
-        backgroundColor: COLORS.blue.dark, // Exact dark blue from screenshot
-        color: COLORS.background, // Pure white text
-        height: '187px', // Exact height from design specification
+        backgroundColor: theme.palette.tertiary.dark,
+        color: theme.palette.background.default,
+        height: { xs: '150px', sm: '187px' }, // Responsive height using theme breakpoints
         display: 'flex',
-        alignItems: 'center', // Center content vertically
-        justifyContent: 'center', // Center content horizontally
-        padding: '0', // Remove horizontal padding to eliminate offset
+        alignItems: 'center',
+        justifyContent: 'center',
         marginTop: 'auto',
         width: '100%',
-        borderRadius: '0 !important', // Sharp corners
-        boxShadow: 'none', // No shadow
-
-        // Mobile responsive
-        '@media (max-width: 768px)': {
-          padding: '0',
-          height: '150px', // Slightly smaller on mobile
-        },
       }}
     >
       <Typography
+        variant="body2"
         sx={{
-          fontSize: '14px', // Exact font size from screenshot
-          lineHeight: 1.5, // Good line height for readability
-          textAlign: 'center', // Center text horizontally
-          fontFamily: 'Karbon, sans-serif',
-          fontWeight: 400, // Regular weight
-          color: COLORS.background,
-          width: '100%', // Take full width
-          letterSpacing: '0.02em', // Slight letter spacing for better readability
-          wordSpacing: '0.1em', // Slight word spacing for better balance
-          padding: '0 20px', // Minimal side padding
-          display: 'block', // Ensure block display for proper centering
+          textAlign: 'center',
+          width: '100%',
+          letterSpacing: '0.02em',
+          wordSpacing: '0.1em',
+          px: { xs: 2.5, sm: 5 }, // Responsive padding using theme spacing
         }}
       >
         Lorem ipsum dolor sit amet, consectetur adipisci elit, sed do eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrum exercitationem ullam
