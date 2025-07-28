@@ -90,11 +90,12 @@ export const TodoTable: React.FC<TodoTableProps> = ({
             variant="tableCell" 
             sx={{ 
               textAlign: 'right',
-              color: todo.completed ? 'success.main' : 'text.secondary',
-              fontWeight: todo.completed ? 600 : 400,
+              color: todo.completed ? 'success.main' : 'error.main',
+              fontWeight: 600,
+              fontSize: '18px', // Larger for icons
             }}
           >
-            {todo.completed ? 'YES' : 'NO'}
+            {todo.completed ? '✓' : '✗'}
           </Typography>
         </TableRow>
       ))}
