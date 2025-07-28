@@ -22,7 +22,6 @@ import type { SelectChangeEvent } from '@mui/material';
 import SaveIcon from '@mui/icons-material/Save';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { logger } from '../../utils/logger';
-import { COLORS } from '../../constants';
 import type { Todo, User } from '../../types';
 
 interface TodoEditDialogProps {
@@ -275,8 +274,8 @@ export const TodoEditDialog: React.FC<TodoEditDialogProps> = ({
                   justifyContent: 'center',
                   width: '100px',
                   height: '40px',
-                  backgroundColor: formData.completed ? COLORS.success : COLORS.error,
-                  color: COLORS.background,
+                  backgroundColor: formData.completed ? 'success.main' : 'error.main',
+                  color: 'background.default',
                   border: 'none',
                   borderRadius: '20px', // Rounded toggle
                   fontFamily: 'Karbon, sans-serif',

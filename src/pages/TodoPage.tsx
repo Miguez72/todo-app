@@ -15,7 +15,6 @@ import { FiltersPanel } from '../components/filters/FiltersPanel';
 import { TodoTable } from '../components/todos/TodoTable';
 import { TodoEditDialog } from '../components/todos/TodoEditDialog';
 import { useTodos } from '../hooks/useTodos';
-import { COLORS } from '../constants';
 import type { Todo } from '../types';
 
 export const TodoPage: React.FC = () => {
@@ -138,7 +137,7 @@ export const TodoPage: React.FC = () => {
     <Box
       sx={{
         minHeight: '100vh',
-        backgroundColor: COLORS.background, // White app background like design
+        backgroundColor: 'background.default', // Using theme color
         display: 'flex',
         flexDirection: 'column',
         fontFamily: 'Karbon, sans-serif',
@@ -156,25 +155,24 @@ export const TodoPage: React.FC = () => {
           flex: 1,
           display: 'flex',
           flexDirection: isMobile ? 'column' : 'row',
-          gap: '30px', // Exact gap from screenshot
-          padding: isMobile ? '20px' : '40px', // Responsive padding
+          gap: { xs: 2.5, md: 3.75 }, // Using theme spacing
+          padding: { xs: 2.5, md: 5 }, // Using theme spacing
           maxWidth: '1400px', // Max container width
           margin: '0 auto', // Center the container
           width: '100%',
           alignItems: 'flex-start', // Align to top
           justifyContent: 'center', // Center content horizontally
 
-          // Mobile responsive
-          '@media (max-width: 768px)': {
-            gap: '20px',
-            padding: '20px',
+          // Use theme breakpoints
+          [theme.breakpoints.down('md')]: {
+            gap: 2.5,
+            padding: 2.5,
             justifyContent: 'center',
           },
 
-          // Tablet responsive
-          '@media (min-width: 769px) and (max-width: 1024px)': {
-            gap: '25px',
-            padding: '30px',
+          [theme.breakpoints.between('md', 'lg')]: {
+            gap: 3.125,
+            padding: 3.75,
             justifyContent: 'center',
           },
         }}
@@ -250,8 +248,8 @@ export const TodoPage: React.FC = () => {
           variant="filled"
           sx={{ 
             width: '100%',
-            fontFamily: 'Karbon, sans-serif',
-            borderRadius: '0 !important',
+            fontFamily: 'inherit', // Will inherit from theme
+            borderRadius: 0,
           }}
         >
           {snackbar.message}

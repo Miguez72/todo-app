@@ -21,6 +21,15 @@ declare module '@mui/material/styles' {
   }
 }
 
+// Custom Typography variants
+declare module '@mui/material/Typography' {
+  interface TypographyPropsVariantOverrides {
+    tableHeader: true;
+    tableCell: true;
+    paginationText: true;
+  }
+}
+
 export const theme = createTheme({
   // Design tokens
   palette: {
@@ -115,6 +124,40 @@ export const theme = createTheme({
           fontFamily: 'Karbon, sans-serif',
         },
       },
+      variants: [
+        {
+          props: { variant: 'tableHeader' },
+          style: {
+            fontFamily: 'Karbon, sans-serif',
+            fontWeight: 600,
+            color: COLORS.blue.primary,
+            fontSize: '20px',
+            letterSpacing: '0.5px',
+            lineHeight: 1,
+            textTransform: 'uppercase',
+          },
+        },
+        {
+          props: { variant: 'tableCell' },
+          style: {
+            fontFamily: 'Karbon, sans-serif',
+            fontWeight: 400,
+            fontSize: '16px',
+            lineHeight: 1.3,
+            color: COLORS.text.primary,
+          },
+        },
+        {
+          props: { variant: 'paginationText' },
+          style: {
+            fontFamily: 'Karbon, sans-serif',
+            fontSize: '14px',
+            color: COLORS.blue.primary,
+            lineHeight: 1,
+            fontWeight: 400,
+          },
+        },
+      ],
     },
 
     // Button component defaults
