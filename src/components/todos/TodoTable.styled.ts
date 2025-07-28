@@ -18,7 +18,7 @@ export const TableContainer = styled(Box)(({ theme }) => ({
 
 export const TableHeader = styled(Box)(({ theme }) => ({
   display: 'grid',
-  gridTemplateColumns: '80px 1fr 120px',
+  gridTemplateColumns: '100px 1fr 120px', // Match row width
   backgroundColor: 'transparent',
   borderBottom: `1px solid ${theme.palette.tertiary.main}`,
   padding: theme.spacing(2.5, 3.75),
