@@ -76,6 +76,19 @@ export const useTodos = () => {
       result = result.filter(todo => filters.userIds.includes(todo.userId));
     }
 
+    // Sort: newly created todos (timestamp IDs) first, then original todos by ID ascending
+    result = result.sort((a, b) => {
+      // Timestamp IDs are much larger (Date.now() returns milliseconds since epoch)
+      // JSONPlaceholder IDs are 1-200, timestamp IDs are 17+ digits
+      const aIsNew = a.id > 1000; // Assume IDs > 1000 are new todos
+      const bIsNew = b.id > 1000;
+      
+      if (aIsNew && !bIsNew) return -1; // New todos first
+      if (!aIsNew && bIsNew) return 1;  // New todos first
+      if (aIsNew && bIsNew) return b.id - a.id; // Newest new todos first
+      return a.id - b.id; // Original todos in ascending order
+    });
+
     return result;
   }, [todos, filters]);
 
@@ -155,8 +168,8 @@ export const useTodos = () => {
   const addTodo = useCallback(async (newTodo: Omit<Todo, 'id'>): Promise<void> => {
     try {
       const createdTodo = await TodoService.createTodo(newTodo);
-      // Add to local state (since jsonplaceholder doesn't persist)
-      setTodos(prev => [...prev, { ...createdTodo, id: Date.now() }]);
+      // Add to beginning of local state for immediate user feedback
+      setTodos(prev => [{ ...createdTodo, id: Date.now() }, ...prev]);
     } catch (err) {
       throw new Error(err instanceof Error ? err.message : 'Failed to add todo');
     }

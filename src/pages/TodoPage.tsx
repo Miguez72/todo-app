@@ -241,6 +241,7 @@ export const TodoPage: React.FC = () => {
         users={users}
         onClose={handleCloseEditDialog}
         onSave={handleSaveTodo}
+        onDelete={handleDeleteTodo}
         loading={loading}
       />
 

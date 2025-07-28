@@ -21,6 +21,7 @@ import {
 import type { SelectChangeEvent } from '@mui/material';
 import SaveIcon from '@mui/icons-material/Save';
 import CancelIcon from '@mui/icons-material/Cancel';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { logger } from '../../utils/logger';
 import type { Todo, User } from '../../types';
 
@@ -30,6 +31,7 @@ interface TodoEditDialogProps {
   users: User[];
   onClose: () => void;
   onSave: (todoData: Omit<Todo, 'id'>) => Promise<void>;
+  onDelete?: (id: number) => Promise<void>; // Optional delete handler
   loading?: boolean;
 }
 
@@ -39,6 +41,7 @@ export const TodoEditDialog: React.FC<TodoEditDialogProps> = ({
   users,
   onClose,
   onSave,
+  onDelete,
   loading = false
 }) => {
   // Form state
@@ -49,6 +52,7 @@ export const TodoEditDialog: React.FC<TodoEditDialogProps> = ({
   });
   const [formErrors, setFormErrors] = useState<Record<string, string>>({});
   const [saving, setSaving] = useState(false);
+  const [deleting, setDeleting] = useState(false);
 
   const isEditMode = todo !== null;
 
@@ -157,6 +161,33 @@ export const TodoEditDialog: React.FC<TodoEditDialogProps> = ({
       });
     } finally {
       setSaving(false);
+    }
+  };
+
+  /**
+   * Handle delete todo
+   */
+  const handleDelete = async () => {
+    if (!isEditMode || !todo || !onDelete) {
+      return;
+    }
+
+    // Confirm delete action
+    if (!window.confirm('Are you sure you want to delete this todo? This action cannot be undone.')) {
+      return;
+    }
+
+    try {
+      setDeleting(true);
+      await onDelete(todo.id);
+      onClose();
+    } catch (error) {
+      logger.error('Error deleting todo:', error);
+      setFormErrors({
+        submit: error instanceof Error ? error.message : 'Failed to delete todo'
+      });
+    } finally {
+      setDeleting(false);
     }
   };
 
@@ -337,16 +368,30 @@ export const TodoEditDialog: React.FC<TodoEditDialogProps> = ({
       <DialogActions sx={{ p: 3, pt: 2 }}>
         <Button
           onClick={handleClose}
-          disabled={saving}
+          disabled={saving || deleting}
           startIcon={<CancelIcon />}
           sx={{ textTransform: 'none' }}
         >
           Cancel
         </Button>
+        
+        {/* Delete button - only show in edit mode */}
+        {isEditMode && onDelete && (
+          <Button
+            onClick={handleDelete}
+            color="error"
+            disabled={saving || deleting}
+            startIcon={deleting ? <CircularProgress size={16} /> : <DeleteIcon />}
+            sx={{ textTransform: 'none', minWidth: 120 }}
+          >
+            {deleting ? 'Deleting...' : 'Delete'}
+          </Button>
+        )}
+        
         <Button
           onClick={handleSave}
           variant="contained"
-          disabled={saving || !formData.title.trim()}
+          disabled={saving || deleting || !formData.title.trim()}
           startIcon={saving ? <CircularProgress size={16} /> : <SaveIcon />}
           sx={{ textTransform: 'none', minWidth: 120 }}
         >
